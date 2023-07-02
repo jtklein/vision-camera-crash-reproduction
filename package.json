@@ -30,10 +30,11 @@
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepack": "bob build",
+    "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install && yarn example pods",
+    "start": "watchman watch-del-all && yarn example start --reset-cache",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
   },
   "keywords": [
@@ -52,8 +53,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@evilmartians/lefthook": "^1.2.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "@evilmartians/lefthook": "^1.2.2",
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
@@ -68,17 +69,20 @@
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react": "18.2.0",
-    "react-native": "0.72.1",
-    "react-native-builder-bob": "^0.20.0",
+    "react-native": "0.72.0",
+    "react-native-builder-bob": "^0.20.4",
+    "react-native-vision-camera": "^2.15.4",
     "release-it": "^15.0.0",
-    "typescript": "^5.0.2"
+    "typescript": "^4.5.2"
   },
   "resolutions": {
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": ">=2.1.0",
+    "react-native-vision-camera": ">=2.0.0"
   },
   "engines": {
     "node": ">= 16.0.0"
@@ -128,6 +132,12 @@
           "tabWidth": 2,
           "trailingComma": "es5",
           "useTabs": false
+        }
+      ],
+      "react-hooks/exhaustive-deps": [
+        "warn",
+        {
+          "additionalHooks": "(useFrameProcessor)"
         }
       ]
     }
